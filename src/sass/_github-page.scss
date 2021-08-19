@@ -1,0 +1,81 @@
+/*================================
+==========  CONTAINER  ===========
+================================*/
+.container {
+  width: 900px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media screen and (max-width: 914px) {
+  .container {
+    width: 100%;
+  }
+}
+/*================================
+========  END CONTAINER  =========
+================================*/
+
+
+/*================================
+============  GRID  ==============
+================================*/
+.p-grid {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.result__user {
+  flex: 0 0 22.6rem;
+  padding: .5rem;
+}
+
+.result__repos {
+  flex: 1;
+  padding: .5rem;
+  padding-left: 1.5rem;
+}
+
+@media screen and (min-width: 701px) {
+  .result__user {
+    align-self: flex-start;
+    position: -webkit-sticky;
+    position: -moz-sticky;
+    position: -ms-sticky;
+    position: -o-sticky;
+    position: sticky;
+    top: 6rem;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .p-grid {
+    flex-direction: column;
+  }
+
+  .result__user {
+    flex: 1;
+  }
+
+  .result__repos {
+    padding-left: .5rem;
+  }
+}
+
+@media screen and (min-width: 500px) and (max-width: 700px) {
+  .result__user {
+    display: flex;
+  }
+}
+
+@media screen and (max-width: 499px) {
+  .result__user {
+    flex-direction: column;
+  }
+}
+
+
+.loader .my-loader {
+  background-color: #D32F2F;
+}

@@ -1,0 +1,128 @@
+<header class="header">
+  <div class="container">
+    <div class="header__logo">
+      <a href="#">Github Finder</a>
+    </div>
+  </div>
+</header>
+
+<div class="content">
+  <section class="search">
+    <div class="container">
+      <h1 class="search__head">Search Github Users</h1>
+      <h3 class="search__subhead">Type username that you want to look his/her Github profile</h3>
+  
+      <div class="search__autocomplete ui-fluid">
+        <p-autoComplete [(ngModel)]="username" [suggestions]="users" (completeMethod)="searchUser($event.query)"
+                  field="login" [size]="30" placeholder="Github username" [minLength]="1"
+                  (onSelect)="selectedUser(username.login)"
+                  emptyMessage="Couldn't find any user!">
+          <ng-template let-foundedUser pTemplate="selectedUser">
+            <div class="search__autocomplete--results">
+              <img [src]="foundedUser.avatar_url"/>
+              <span>{{ foundedUser.login }}</span>
+            </div>
+          </ng-template>
+        </p-autoComplete>
+      </div>
+    </div>
+  </section>
+  <!-- <loaders-css [loader]="'line-scale-pulse-out'" [loaderClass]="'my-loader'" *ngIf="!loader"></loaders-css> -->
+  <section class="result" *ngIf="user">
+    <div class="container">
+      <div class="p-grid">
+        <div class="result__user">
+          <div class="result__user--image">
+            <img src="{{ user.avatar_url }}" alt="user_avatar">
+          </div>
+          <div class="result__user--all-info">
+            <h1 class="result__user--name">{{ user.name }}</h1>
+            <h3 class="result__user--username">{{ user.login }}</h3>
+    
+            <div class="result__user--about">
+              <ul>
+                <li *ngIf="user.bio">
+                  <fa-icon [icon]="['fas', 'info-circle']"></fa-icon>
+                  {{ user.bio }}
+                </li>
+                <li *ngIf="user.location">
+                  <fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon>
+                  {{ user.location }}
+                </li>
+                <li *ngIf="user.email">
+                  <a href="mail:to{{ user.email }}">
+                    <fa-icon [icon]="['fas', 'envelope']"></fa-icon>
+                    {{ user.email }}
+                  </a>
+                </li>
+                <li *ngIf="user.blog">
+                  <a href="{{ user.blog }}" target="_blank">
+                    <fa-icon [icon]="['fas', 'globe']"></fa-icon>
+                    {{ user.blog }}
+                  </a>
+                </li>
+                <li *ngIf="user.company">
+                  <fa-icon [icon]="['fas', 'building']"></fa-icon>
+                  {{ user.company }}
+                </li>
+                <li>
+                  <fa-icon [icon]="['far', 'calendar-alt']"></fa-icon>
+                  {{ userCreatedAt }}
+                </li>
+              </ul>
+            </div>
+            
+            <a href="{{ user.html_url }}" class="result__user--view-profile" target="_blank">
+              View Profile
+            </a>
+          </div>
+        </div>
+
+        <div class="result__repos">
+          <div class="result__repos--info">
+            <div class="badge-group">
+              <div class="badge badge-primary">
+                Public Repos: <b>{{ user.public_repos }}</b>
+              </div>
+
+              <div class="badge badge-warning">
+                Public Gists: <b>{{ user.public_gists }}</b>
+              </div>
+            </div>
+
+            <div class="badge-group">
+              <div class="badge badge-success">
+                Follewers: <b>{{ user.followers }}</b>
+              </div>
+  
+              <div class="badge badge-danger">
+                Following: <b>{{ user.following }}</b>
+              </div>
+            </div>
+          </div>
+          
+          <div class="result__repos--repo">
+            <div class="repo" *ngFor="let repo of repos">
+              <a href="{{ repo.html_url }}" target="_blank">
+                <span class="repo__name">{{ repo.name }}</span>
+                <span class="repo__desc">
+                  {{ repo.description ? repo.description : 'No description about this repo' }}
+                </span>
+                <span class="repo__date">Created at: <span>{{ repo.created_at.substr(0, 10) }}</span></span>
+                <ul class="repo__info">
+                  <li class="repo__info--lang" *ngIf="repo.language">{{ repo.language }}</li>
+                  <li class="repo__info--forks">Forks: {{ repo.forks_count }}</li>
+                  <li class="repo__info--stars">Stars: {{ repo.stargazers_count }}</li>
+                </ul>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer class="footer">
+  Made by <a href="http://www.vugar.me" target="_blank">Vugar Ahmadov</a> 
+</footer>
